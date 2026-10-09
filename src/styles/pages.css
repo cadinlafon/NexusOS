@@ -1,0 +1,160 @@
+/* Page-level layout. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ---------- Dashboard hero ---------- */
+
+.hero {
+  padding: 18px 2px 2px;
+}
+
+.hero__title {
+  margin-top: 10px;
+  font-size: clamp(34px, 3.2vw, 46px);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.hero__name {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__subtitle {
+  margin-top: 12px;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+/* ---------- Lists (announcements, messages) ---------- */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.list-card {
+  padding: 18px 20px;
+  border-radius: var(--radius-card);
+}
+
+.list-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.list-card__source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.list-card__time {
+  color: var(--text-3);
+}
+
+.list-card__title {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.list-card__text {
+  margin-top: 4px;
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+
+.unread-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.message-row {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-card);
+}
+
+.message-row__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.message-row .list-card__source {
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* ---------- Calendar ---------- */
+
+.schedule {
+  border-radius: var(--radius-card);
+  padding: 6px;
+}
+
+.schedule__row {
+  display: grid;
+  grid-template-columns: 78px 8px minmax(0, 1fr) 80px 84px;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 13px;
+  font-size: 13.5px;
+}
+
+.schedule__row--current {
+  background: var(--glass-active);
+  box-shadow: var(--sheen);
+}
+
+.schedule__row--done {
+  opacity: 0.5;
+}
+
+.schedule__time {
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule__name {
+  font-weight: 600;
+}
+
+.schedule__room {
+  color: var(--text-3);
+}
+
+.schedule__status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.empty {
+  padding: 22px;
+  border-radius: var(--radius-card);
+  color: var(--text-2);
+  font-size: 13.5px;
+}

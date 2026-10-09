@@ -1,0 +1,21 @@
+node_modules
+# The CEF source checkout is its own repository.
+chromium
+dist
+.DS_Store
+*.local
+# Secrets (the OpenRouter key). .env.example is the template to share.
+.env
+.env.local
+.env.*.local
+.env.*
+!.env.example
+!.env.emulator
+# Firebase emulator: saved test accounts and logs.
+.firebase-data
+*-debug.log
+# Native host: build output and the downloaded CEF binaries.
+native/build
+native/third_party
+# The classroom relay's saved school model.
+classroom/.data

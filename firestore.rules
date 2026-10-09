@@ -1,0 +1,50 @@
+rules_version = '2';
+
+// NEXUS OS — Firestore security rules.
+//
+// These rules, not the interface, decide what an account may read and change.
+// This milestone has one collection: users/{uid}, the NEXUS profile that says
+// which role an account has.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedInAs(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function validName(name) {
+      return name is string && name.size() > 0 && name.size() <= 80;
+    }
+
+    match /users/{uid} {
+      // An account can read its own profile and nobody else's.
+      allow read: if signedInAs(uid);
+
+      // An account may create its own profile once, and only as a student.
+      // Teacher and admin roles are assigned by an administrator (the Firebase
+      // console or the Admin SDK, which are not bound by these rules).
+      allow create: if signedInAs(uid)
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'displayName', 'role', 'schoolId', 'createdAt'])
+        && request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'role', 'schoolId', 'createdAt'])
+        && request.resource.data.uid == uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.role == 'student'
+        && request.resource.data.schoolId == 'demo-school'
+        && validName(request.resource.data.displayName)
+        && request.resource.data.createdAt == request.time;
+
+      // An account may change its display name and nothing else. Role,
+      // school, email and uid cannot be changed from a client.
+      allow update: if signedInAs(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName'])
+        && validName(request.resource.data.displayName);
+
+      allow delete: if false;
+    }
+
+    // Nothing else exists yet. Everything not named above is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

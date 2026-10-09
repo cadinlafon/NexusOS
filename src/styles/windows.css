@@ -1,0 +1,206 @@
+/* The window system: the desktop layer, window frames and title bars. */
+
+.desktop-area {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+.desktop-area > .workspace {
+  height: 100%;
+}
+
+/* Sits over the workspace. Only the windows themselves take pointer input, so
+   the page underneath stays usable wherever no window covers it. */
+.window-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.app-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+  border-radius: 16px;
+  background: var(--window-bg);
+  border: 1px solid var(--window-border);
+  box-shadow: var(--sheen), var(--window-shadow);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  transform-origin: center;
+  transition:
+    left var(--medium) var(--ease),
+    top var(--medium) var(--ease),
+    width var(--medium) var(--ease),
+    height var(--medium) var(--ease),
+    border-radius var(--medium) var(--ease),
+    transform 300ms var(--ease),
+    opacity 220ms ease,
+    box-shadow var(--medium) var(--ease),
+    visibility 0s;
+  /* `backwards` only: once it ends, transforms belong to the states below. */
+  animation: window-in 200ms var(--ease) backwards;
+}
+
+@keyframes window-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.app-window.is-active {
+  border-color: var(--window-border-active);
+  box-shadow: var(--sheen), var(--window-shadow-active);
+}
+
+/* Follow the pointer exactly while dragging. */
+.app-window.is-dragging {
+  transition: box-shadow var(--medium) var(--ease);
+  cursor: grabbing;
+}
+
+.app-window.is-maximized {
+  border-radius: var(--radius-panel);
+}
+
+/* Shrinks toward its dock icon; --min-x/--min-y are set by AppWindow. */
+.app-window.is-minimized {
+  transform: translate(var(--min-x, 40vw), var(--min-y, 0px)) scale(0.08);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    transform 320ms var(--ease),
+    opacity 260ms ease,
+    visibility 0s 320ms;
+}
+
+.app-window.is-closing {
+  transform: scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+.app-window__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Title bar ---------- */
+
+.window-titlebar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 42px;
+  padding: 0 8px 0 12px;
+  border-bottom: 1px solid var(--divider);
+  touch-action: none;
+}
+
+.window-titlebar__identity {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.window-titlebar__name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--fast) var(--ease);
+}
+
+.app-window:not(.is-active) .window-titlebar__name {
+  color: var(--text-3);
+}
+
+.app-window:not(.is-active) .window-titlebar .app-icon {
+  filter: saturate(0.5);
+  opacity: 0.75;
+}
+
+.window-titlebar__controls {
+  display: flex;
+  gap: 4px;
+}
+
+.window-control {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--text-2);
+  transition:
+    background var(--fast) var(--ease),
+    color var(--fast) var(--ease);
+}
+
+.window-control:hover {
+  background: var(--glass-active);
+  color: var(--text);
+}
+
+.window-control--close:hover {
+  background: #f0506e;
+  color: #fff;
+}
+
+.app-icon--sm {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+}
+
+/* ---------- Dock: running indicators ---------- */
+
+.dock-app {
+  position: relative;
+}
+
+.dock-app__running {
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  transform: scale(0);
+  transition:
+    opacity var(--medium) var(--ease),
+    transform var(--medium) var(--ease),
+    background var(--medium) var(--ease);
+}
+
+.dock-app.is-running .dock-app__running {
+  opacity: 1;
+  transform: none;
+}
+
+.dock-app.is-minimized .dock-app__running {
+  background: var(--text-3);
+}
+
+.dock-app.is-active {
+  background: var(--glass);
+  border-color: var(--border);
+}

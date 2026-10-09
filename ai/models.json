@@ -1,0 +1,104 @@
+{
+  "_about": "The one place NEXUS AI's models are named. Every id here was checked against OpenRouter's catalog and called successfully on 2026-10-09. The service refuses any id that is not in this file or does not end in ':free', so NEXUS can never route to a paid model. To change a model, edit this file; the first model in a list is used first and the rest are fallbacks, in order.",
+  "provider": "OpenRouter",
+  "capabilities": {
+    "chat": {
+      "label": "Chat",
+      "description": "General help for students and teachers.",
+      "audience": "everyone",
+      "endpoint": "chat",
+      "models": [
+        { "id": "nvidia/nemotron-3-super-120b-a12b:free", "name": "NVIDIA Nemotron 3 Super", "role": "Main" },
+        { "id": "liquid/lfm-2.5-2.6b:free", "name": "LiquidAI LFM2.5-2.6B", "role": "Fast fallback" }
+      ]
+    },
+    "coding": {
+      "label": "Coding",
+      "description": "Programming help, debugging and explanations.",
+      "audience": "everyone",
+      "endpoint": "chat",
+      "models": [
+        { "id": "cohere/north-mini-code:free", "name": "Cohere North Mini Code", "role": "Main" },
+        { "id": "nvidia/nemotron-3-super-120b-a12b:free", "name": "NVIDIA Nemotron 3 Super", "role": "Fallback" }
+      ]
+    },
+    "longContext": {
+      "label": "Long context",
+      "description": "Very long documents and conversations (up to 1,000,000 tokens).",
+      "audience": "everyone",
+      "endpoint": "chat",
+      "models": [
+        { "id": "nvidia/nemotron-3-ultra-550b-a55b:free", "name": "NVIDIA Nemotron 3 Ultra", "role": "Main" }
+      ]
+    },
+    "image": {
+      "label": "Image",
+      "description": "Understands a picture you attach. It does not create pictures.",
+      "audience": "everyone",
+      "endpoint": "chat",
+      "acceptsImages": true,
+      "models": [
+        { "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", "name": "NVIDIA Nemotron 3 Nano Omni", "role": "Main" }
+      ]
+    },
+    "decisions": {
+      "label": "Decisions",
+      "description": "Structured yes/no and multiple-choice recommendations for teachers.",
+      "audience": "teachers",
+      "endpoint": "decisions",
+      "models": [
+        { "id": "inception/mercury-decide:free", "name": "Inception Mercury Decide", "role": "Main" },
+        { "id": "respan/span-01-lite:free", "name": "Respan Span-01 Lite", "role": "Fallback (yes/no questions only)", "yesNoOnly": true }
+      ]
+    },
+    "embeddings": {
+      "label": "Embeddings",
+      "description": "Turns text into vectors for searching by meaning.",
+      "audience": "everyone",
+      "endpoint": "embeddings",
+      "dimensions": 2048,
+      "models": [
+        { "id": "nvidia/nemotron-3-embed-1b:free", "name": "NVIDIA Nemotron 3 Embed 1B", "role": "Main" }
+      ]
+    },
+    "rerank": {
+      "label": "Reranking",
+      "description": "Orders search results by how well they answer a question.",
+      "audience": "everyone",
+      "endpoint": "rerank",
+      "models": [
+        { "id": "nvidia/llama-nemotron-rerank-vl-1b-v2:free", "name": "NVIDIA Llama Nemotron Rerank VL 1B V2", "role": "Main" }
+      ]
+    },
+    "voice": {
+      "label": "Voice",
+      "description": "Reads text aloud (text to speech).",
+      "audience": "everyone",
+      "endpoint": "speech",
+      "models": [
+        { "id": "fish-audio/s2.1-pro-free:free", "name": "Fish Audio S2.1 Pro Free", "role": "Main" }
+      ]
+    },
+    "transcription": {
+      "label": "Transcription",
+      "description": "Turns speech into text.",
+      "audience": "everyone",
+      "models": [],
+      "unavailable": "OpenRouter lists 25 transcription models and none of them is free."
+    },
+    "video": {
+      "label": "Video",
+      "description": "Creates video.",
+      "audience": "everyone",
+      "models": [],
+      "unavailable": "OpenRouter's video models are all billed per second of video. None is free."
+    },
+    "audioGeneration": {
+      "label": "Audio generation",
+      "description": "Creates music or sound.",
+      "audience": "everyone",
+      "models": [],
+      "unavailable": "The only candidates (Google Lyria 3 previews) are not offered as ':free' models, so NEXUS will not call them."
+    }
+  }
+}

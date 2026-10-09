@@ -1,0 +1,100 @@
+/* NEXUS design tokens. Dark is the primary experience; light is its own
+   palette rather than an inversion. Components only ever read these. */
+
+:root {
+  --font: 'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter',
+    'Segoe UI Variable', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --accent: #7c9cff;
+  --accent-2: #a98bff;
+  --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
+  --live: #34d399;
+
+  --radius-panel: 22px;
+  --radius-card: 18px;
+  --radius-control: 12px;
+
+  --gap: 12px;
+  --topbar-height: 44px;
+  --sidebar-width: 248px;
+  --dock-width: 268px;
+
+  --ease: cubic-bezier(0.22, 0.8, 0.26, 1);
+  --fast: 160ms;
+  --medium: 260ms;
+}
+
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0a0c13;
+  --orb-a: rgba(79, 107, 255, 0.34);
+  --orb-b: rgba(150, 105, 255, 0.26);
+  --orb-c: rgba(45, 190, 220, 0.14);
+
+  --text: #eef0f8;
+  --text-2: rgba(232, 235, 248, 0.66);
+  --text-3: rgba(232, 235, 248, 0.42);
+
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-panel: rgba(22, 25, 38, 0.55);
+  --glass-hover: rgba(255, 255, 255, 0.08);
+  --glass-active: rgba(255, 255, 255, 0.11);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --sheen: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.75);
+  --shadow-lift: 0 28px 60px -24px rgba(0, 0, 0, 0.85);
+  --track: rgba(255, 255, 255, 0.09);
+  --scrim: rgba(4, 6, 12, 0.55);
+
+  /* App windows are more opaque than panels so their content stays readable. */
+  --window-bg: rgba(23, 26, 39, 0.84);
+  --window-border: rgba(255, 255, 255, 0.08);
+  --window-border-active: rgba(255, 255, 255, 0.17);
+  --window-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.7);
+  --window-shadow-active: 0 0 0 0.5px rgba(0, 0, 0, 0.5), 0 36px 80px -24px rgba(0, 0, 0, 0.9);
+  --inset: rgba(255, 255, 255, 0.035);
+  --inset-strong: rgba(255, 255, 255, 0.07);
+  --divider: rgba(255, 255, 255, 0.08);
+  --paper: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --accent: #4b68f5;
+  --accent-2: #7d58ec;
+
+  --bg: #eef0f6;
+  --orb-a: rgba(110, 140, 255, 0.34);
+  --orb-b: rgba(178, 140, 255, 0.3);
+  --orb-c: rgba(110, 215, 235, 0.24);
+
+  --text: #141726;
+  --text-2: rgba(20, 23, 38, 0.68);
+  --text-3: rgba(20, 23, 38, 0.46);
+
+  --glass: rgba(255, 255, 255, 0.62);
+  --glass-panel: rgba(255, 255, 255, 0.58);
+  --glass-hover: rgba(255, 255, 255, 0.85);
+  --glass-active: rgba(255, 255, 255, 0.95);
+  --border: rgba(255, 255, 255, 0.75);
+  --border-strong: rgba(30, 40, 90, 0.14);
+  --sheen: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --shadow: 0 1px 2px rgba(30, 40, 90, 0.05), 0 18px 44px -24px rgba(40, 50, 110, 0.3);
+  --shadow-lift: 0 2px 4px rgba(30, 40, 90, 0.06), 0 26px 50px -22px rgba(40, 50, 110, 0.4);
+  --track: rgba(30, 40, 90, 0.1);
+  --scrim: rgba(225, 229, 242, 0.6);
+
+  --window-bg: rgba(247, 248, 253, 0.86);
+  --window-border: rgba(30, 40, 90, 0.1);
+  --window-border-active: rgba(30, 40, 90, 0.18);
+  --window-shadow: 0 16px 36px -22px rgba(40, 50, 110, 0.35);
+  --window-shadow-active: 0 2px 6px rgba(30, 40, 90, 0.08), 0 36px 70px -26px rgba(40, 50, 110, 0.55);
+  --inset: rgba(30, 40, 90, 0.035);
+  --inset-strong: rgba(30, 40, 90, 0.07);
+  --divider: rgba(30, 40, 90, 0.1);
+  --paper: #ffffff;
+}
